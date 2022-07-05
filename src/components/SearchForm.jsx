@@ -1,13 +1,16 @@
-import React from 'react'
-
+import React from "react";
+import { SearchIcon } from '../icons'
 const SearchForm = () => {
   return (
-      <form className='search-form'>
-        <div className='form-control'>
-          <input type='text' name='name' id='name' />
+    <form className="form">
+      <div className="form-control">
+            <label htmlFor="search" className="search-icon">
+                <SearchIcon />
+            </label>
+            <input type="text" name="name" id="search" className="search-input" placeholder="Search for a reporsitories"/>
         </div>
-      </form>
-  )
-}
+    </form>
+  );
+};
 
-export default SearchForm
+export default SearchForm;
