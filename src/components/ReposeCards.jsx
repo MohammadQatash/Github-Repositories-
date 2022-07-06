@@ -9,12 +9,46 @@ import {
   LanguageIcon
 } from "../icons";
 
-const ReposeCards = ({repose}) => {
+const ReposeCards = ({
+  full_name,
+  stargazers_count,
+  forks,
+  open_issues,
+  language,
+  license,
+  created_at,
+  updated_at,
+  owner,
+}) => {
+  function GetDate(time) {
+    const arrDate = [];
+    const created = new Date(time);
+    const now = new Date();
+    const totalSeconds = (now.getTime() - created.getTime()) / 1000;
+
+    const years = Math.floor(totalSeconds / 3600 / 24 / 30 / 12);
+    const months = Math.floor(totalSeconds / 3600 / 24 / 30);
+    const days = Math.floor(totalSeconds / 3600 / 24) % 30;
+    const hours = Math.floor(totalSeconds / 3600) % 24;
+    const mins = Math.floor(totalSeconds / 60) % 60;
+    
+    arrDate.push(`${years} years ago`);
+    arrDate.push(`${months} months ago`);
+    arrDate.push(`${days} days ago`);
+    arrDate.push(`${hours} hours ago`);
+    arrDate.push(`${mins} mins ago`);
+    
+    const age = arrDate.find(date => {
+      return parseInt(date) > 0;
+    });
+    return age;
+  }
+
   return (
     <div className="repository-card">
       <div className="repose-name">
-        <div>{repose[0].full_name}</div>
-        <img src={repose[0].owner.avatar_url} alt="noImage" />
+        <div>{full_name}</div>
+        <img src={owner.avatar_url} alt="noImage" />
       </div>
       <div className="repose-stars mt-7">
         <div className="icon-box">
@@ -23,7 +57,7 @@ const ReposeCards = ({repose}) => {
           </span>
           Stars
         </div>
-        <div>{repose[0].stargazers_count}</div>
+        <div>{stargazers_count.toLocaleString("en-US")}</div>
       </div>
       <div className="repose-forks">
         <div className="icon-box">
@@ -32,7 +66,7 @@ const ReposeCards = ({repose}) => {
           </span>
           Forks
         </div>
-        <div>{repose[0].forks}</div>
+        <div>{forks.toLocaleString("en-US")}</div>
       </div>
       <div className="repose-open-issues">
         <div className="icon-box">
@@ -41,7 +75,7 @@ const ReposeCards = ({repose}) => {
           </span>
           open issues
         </div>
-        <div>{repose[0].open_issues}</div>
+        <div>{open_issues}</div>
       </div>
       <div className="repose-age">
         <div className="icon-box">
@@ -50,7 +84,7 @@ const ReposeCards = ({repose}) => {
           </span>
           Age
         </div>
-        <div>{repose[0].age}</div>
+        <div>{GetDate(created_at)}</div>
       </div>
       <div className="repose-last-commit">
         <div className="icon-box">
@@ -59,7 +93,7 @@ const ReposeCards = ({repose}) => {
           </span>
           lastCommit
         </div>
-        <div>{repose[0].lastCommit}</div>
+        <div>{GetDate(updated_at)}</div>
       </div>
       <div className="repose-license">
         <div className="icon-box">
@@ -68,7 +102,7 @@ const ReposeCards = ({repose}) => {
           </span>
           license
         </div>
-        <div>{repose[0].license}</div>
+        <div>{license !== null ? license.spdx_id : "null"}</div>
       </div>
       <div className="repose-language mb-7">
         <div className="icon-box">
@@ -77,11 +111,11 @@ const ReposeCards = ({repose}) => {
           </span>
           Language
         </div>
-        <div>{repose[0].language}</div>
+        <div>{language ? language : 'null'}</div>
       </div>
       <button className="btn-remove">Remove repo</button>
     </div>
   );
-}
+};
 
 export default ReposeCards

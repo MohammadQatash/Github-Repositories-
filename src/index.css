@@ -72,7 +72,7 @@ code {
 }
 
 /* Repose Cards */
-.repos-cards {
+.repositories-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(303px, 1fr));
   gap: 25px;
@@ -80,10 +80,10 @@ code {
 .repository-card {
   display: flex;
   flex-direction: column;
-  /* padding: 0 10px; */
   background: white;
   position: relative;
   border-radius: 5px;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 .repository-card::before {
   content: '';
