@@ -1,8 +1,13 @@
-import React from "react";
-import { SearchIcon } from '../icons'
-const SearchForm = ({hi}) => {
+import React, {useState} from "react";
+import { SearchIcon } from '../icons';
+
+const SearchForm = ({handleSubmit}) => {
+  const [searchValue, setSearchValue] = useState('');
   return (
-    <form className="form" onSubmit={e => hi(e)}>
+    <form
+      className="form"
+      onSubmit={(e) => handleSubmit(e, searchValue, setSearchValue)}
+    >
       <div className="form-control">
         <label htmlFor="search" className="search-icon">
           <SearchIcon />
@@ -13,6 +18,8 @@ const SearchForm = ({hi}) => {
           id="search"
           className="search-input"
           placeholder="Search for a reporsitories"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
     </form>

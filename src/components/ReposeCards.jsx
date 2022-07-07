@@ -10,6 +10,7 @@ import {
 } from "../icons";
 
 const ReposeCards = ({
+  id,
   full_name,
   stargazers_count,
   forks,
@@ -19,6 +20,7 @@ const ReposeCards = ({
   created_at,
   updated_at,
   owner,
+  removeRepo,
 }) => {
   function GetDate(time) {
     const arrDate = [];
@@ -31,14 +33,14 @@ const ReposeCards = ({
     const days = Math.floor(totalSeconds / 3600 / 24) % 30;
     const hours = Math.floor(totalSeconds / 3600) % 24;
     const mins = Math.floor(totalSeconds / 60) % 60;
-    
+
     arrDate.push(`${years} years ago`);
     arrDate.push(`${months} months ago`);
     arrDate.push(`${days} days ago`);
     arrDate.push(`${hours} hours ago`);
     arrDate.push(`${mins} mins ago`);
-    
-    const age = arrDate.find(date => {
+
+    const age = arrDate.find((date) => {
       return parseInt(date) > 0;
     });
     return age;
@@ -111,9 +113,11 @@ const ReposeCards = ({
           </span>
           Language
         </div>
-        <div>{language ? language : 'null'}</div>
+        <div>{language ? language : "null"}</div>
       </div>
-      <button className="btn-remove">Remove repo</button>
+      <button className="btn-remove" onClick={() => {removeRepo(id)}}>
+        Remove repo
+      </button>
     </div>
   );
 };

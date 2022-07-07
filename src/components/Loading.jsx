@@ -2,8 +2,10 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div>Loading...</div>
-  )
+    <div className='loading-box'>
+      <span className="loader"></span>
+    </div>
+  );
 }
 
 export default Loading
