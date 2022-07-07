@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchForm from "./components/SearchForm";
 import ReposeCards from "./components/ReposeCards";
 import Loading from "./components/Loading";
@@ -9,20 +9,17 @@ const url = "https://api.github.com/search/repositories?q=";
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [repose, setRepose] = useState([]);
+  const [reposeList, setReposeList] = useState([]);
   const [err, setErr] = useState('');
 
-  const hi = function(e) {
-    e.preventDefault();
-    console.log('hi');
-  }
-
-  const fetchRepos = async (reposeName) => {
+  async function fetchRepos (reposeName) {
     setLoading(true);
     try {
       const response = await fetch(url + `${reposeName}`);
       const repose = await response.json();
       setLoading(false);
       setRepose(repose.items);
+      return repose.items;
     } catch (error) {
       setLoading(false);
       setErr(error);
@@ -30,37 +27,56 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    fetchRepos("50projects50days");
-  }, []);
+  const handleSubmit = (e, searchValue, setSearchValue) => {
+    e.preventDefault();
+    if (searchValue === "") {
+      return setReposeList([]); //show alert
+    } else {
+      fetchRepos(searchValue).then((repos) => {
+        console.log(repos);
+        setReposeList([]);
+        const newRepos = repos.filter((repo) => {
+          return searchValue.toLowerCase().trim() === repo.name.toLowerCase().trim()
+        });
+        console.log("newRepo", newRepos);
+        setReposeList(newRepos);
+        setSearchValue(searchValue = '');
+        console.log("reposList", reposeList);
+      });
+    }
+  };
 
-  if (loading) {
-    return (
-      <main>
-        <Loading />
-      </main>
-    );
-  }
-  if (err) {
-    return (
-      <main>
-        <Error />
-      </main>
-    );
+  function removeRepo(id) {
+    const newRepo = reposeList.filter((repo) => {
+      return repo.id !== id;
+    });
+    setReposeList(newRepo);
   }
 
   return (
     <main className="main">
       <div className="container">
         <section className="repos-search">
-          <SearchForm hi={hi} />
+          <SearchForm handleSubmit={handleSubmit} />
         </section>
 
-        <section className="repositories-cards">
-          {repose.map((repo, repoIndex) => {
-            return <ReposeCards key={repoIndex} {...repo} />;
-          })}
-        </section>
+        {loading ? (
+          <Loading />
+        ) : reposeList.length > 0 ? (
+          <section className="repositories-cards">
+            {reposeList.map((repo, repoIndex) => {
+              return (
+                <ReposeCards
+                  key={repoIndex}
+                  {...repo}
+                  removeRepo={removeRepo}
+                />
+              );
+            })}
+          </section>
+        ) : (
+          <Error />
+        )}
       </div>
     </main>
   );
