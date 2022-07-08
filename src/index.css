@@ -21,6 +21,9 @@
 a {
   text-decoration: none;
 }
+ul {
+  list-style: none;
+}
 body {
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', 'Oxygen',
@@ -59,6 +62,7 @@ body {
   background: var(--clr-white);
   border-radius: 18px;
   padding: 10px 10px 10px 5px;
+  position: relative;
 } 
 
 .search-icon {
@@ -113,6 +117,7 @@ body {
   right: 0;
   border-bottom: 2px solid var(--clr-light-gray);
 }
+
 .repose-name {
   display: flex;
   justify-content: space-between;
@@ -232,4 +237,56 @@ body {
 }
 .clr {
   color: var(--clr-dark-blue);
+}
+
+/* List */
+.container-list {
+  width: 90%;
+  max-height: 200px;
+  background: var(--clr-white);
+  position: absolute;
+  z-index: 999;
+  border-radius: 10px;
+  padding: 0 10px;
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  left: 48px;
+  top: 42px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.item-list {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  height: 49px;
+  cursor: pointer;
+}
+.item-list::after {
+  content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-bottom: 1px solid var(--clr-light-gray);
+}
+.item-list:hover{
+  background: var(--clr-light1-gray);
+}
+.item-list div {
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.item-list img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 5px;
 }

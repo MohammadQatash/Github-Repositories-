@@ -16,6 +16,7 @@ const App = () => {
     type: "",
     searchValue: "",
   });
+  const [showRepos, setShowRepos] = useState([]);
 
   async function fetchRepos(reposeName) {
     setLoading(true);
@@ -62,13 +63,20 @@ const App = () => {
   };
 
   function removeRepo(id) {
-    const newRepo = reposeList.filter((repo) => {
+    const newRepo = showRepos.filter((repo) => {
       return repo.id !== id;
     });
-    setReposeList(newRepo);
+    setShowRepos(newRepo);
+  }
+
+  const addToRepos = (repo) => {
+    setReposeList([]);
+    setShowRepos([repo, ...showRepos]);
+    return console.log(showRepos);
   }
 
   const showAlert = (show = false, type = "", msg = "", searchValue = "") => {
+    setReposeList([]);
     setAlert({ show, type, msg, searchValue });
   };
 
@@ -77,16 +85,20 @@ const App = () => {
     <main className="main">
       <div className="container">
         <section className="repos-search">
-          <SearchForm handleSubmit={handleSubmit} />
+          <SearchForm
+            handleSubmit={handleSubmit}
+            reposeList={reposeList}
+            addToRepos={addToRepos}
+          />
         </section>
 
         {alert.show && <Alert {...alert} removeAlert={showAlert} />}
 
         {loading === true ? (
           <Loading />
-        ) : reposeList.length > 0 ? (
+        ) : showRepos.length > 0 ? (
           <section className="repositories-cards">
-            {reposeList.map((repo, repoIndex) => {
+            {showRepos.map((repo, repoIndex) => {
               return (
                 <ReposeCards
                   key={repoIndex}
