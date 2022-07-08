@@ -20,6 +20,7 @@ const ReposeCards = ({
   created_at,
   updated_at,
   owner,
+  html_url,
   removeRepo,
 }) => {
   function GetDate(time) {
@@ -49,7 +50,14 @@ const ReposeCards = ({
   return (
     <div className="repository-card">
       <div className="repose-name">
-        <div>{full_name}</div>
+        <a
+          href={html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="full-name clr"
+        >
+          <div>{full_name}</div>
+        </a>
         <img src={owner.avatar_url} alt="noImage" />
       </div>
       <div className="repose-stars mt-7">
@@ -57,7 +65,7 @@ const ReposeCards = ({
           <span className="icons">
             <StarsIcon />
           </span>
-          Stars
+          <span className="clr">Stars</span>
         </div>
         <div>{stargazers_count.toLocaleString("en-US")}</div>
       </div>
@@ -66,7 +74,7 @@ const ReposeCards = ({
           <span className="icons">
             <ForksIcon />
           </span>
-          Forks
+          <span className="clr">Forks</span>
         </div>
         <div>{forks.toLocaleString("en-US")}</div>
       </div>
@@ -75,7 +83,7 @@ const ReposeCards = ({
           <span className="icons">
             <OpenIssuesIcon />
           </span>
-          open issues
+          <span className="clr">open issues</span>
         </div>
         <div>{open_issues}</div>
       </div>
@@ -84,7 +92,7 @@ const ReposeCards = ({
           <span className="icons">
             <AgeIcon />
           </span>
-          Age
+          <span className="clr">Age</span>
         </div>
         <div>{GetDate(created_at)}</div>
       </div>
@@ -93,7 +101,7 @@ const ReposeCards = ({
           <span className="icons">
             <LastCommitIcon />
           </span>
-          lastCommit
+          <span className="clr">lastCommit</span>
         </div>
         <div>{GetDate(updated_at)}</div>
       </div>
@@ -102,7 +110,7 @@ const ReposeCards = ({
           <span className="icons">
             <LicenseIcon />
           </span>
-          license
+          <span className="clr">license</span>
         </div>
         <div>{license !== null ? license.spdx_id : "null"}</div>
       </div>
@@ -111,11 +119,16 @@ const ReposeCards = ({
           <span className="icons">
             <LanguageIcon />
           </span>
-          Language
+          <span className="clr">Language</span>
         </div>
         <div>{language ? language : "null"}</div>
       </div>
-      <button className="btn-remove" onClick={() => {removeRepo(id)}}>
+      <button
+        className="btn-remove"
+        onClick={() => {
+          removeRepo(id);
+        }}
+      >
         Remove repo
       </button>
     </div>
