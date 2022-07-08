@@ -54,7 +54,7 @@ const ReposeCards = ({
           href={html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="full-name clr"
+          className="full-name clr-property"
         >
           <div>{full_name}</div>
         </a>
@@ -65,7 +65,7 @@ const ReposeCards = ({
           <span className="icons">
             <StarsIcon />
           </span>
-          <span className="clr">Stars</span>
+          <span className="clr-property">Stars</span>
         </div>
         <div>{stargazers_count.toLocaleString("en-US")}</div>
       </div>
@@ -74,7 +74,7 @@ const ReposeCards = ({
           <span className="icons">
             <ForksIcon />
           </span>
-          <span className="clr">Forks</span>
+          <span className="clr-property">Forks</span>
         </div>
         <div>{forks.toLocaleString("en-US")}</div>
       </div>
@@ -83,7 +83,7 @@ const ReposeCards = ({
           <span className="icons">
             <OpenIssuesIcon />
           </span>
-          <span className="clr">open issues</span>
+          <span className="clr-property">open issues</span>
         </div>
         <div>{open_issues}</div>
       </div>
@@ -92,7 +92,7 @@ const ReposeCards = ({
           <span className="icons">
             <AgeIcon />
           </span>
-          <span className="clr">Age</span>
+          <span className="clr-property">Age</span>
         </div>
         <div>{GetDate(created_at)}</div>
       </div>
@@ -101,7 +101,7 @@ const ReposeCards = ({
           <span className="icons">
             <LastCommitIcon />
           </span>
-          <span className="clr">lastCommit</span>
+          <span className="clr-property">lastCommit</span>
         </div>
         <div>{GetDate(updated_at)}</div>
       </div>
@@ -110,7 +110,7 @@ const ReposeCards = ({
           <span className="icons">
             <LicenseIcon />
           </span>
-          <span className="clr">license</span>
+          <span className="clr-property">license</span>
         </div>
         <div>{license !== null ? license.spdx_id : "null"}</div>
       </div>
@@ -119,7 +119,7 @@ const ReposeCards = ({
           <span className="icons">
             <LanguageIcon />
           </span>
-          <span className="clr">Language</span>
+          <span className="clr-property">Language</span>
         </div>
         <div>{language ? language : "null"}</div>
       </div>
