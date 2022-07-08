@@ -1,8 +1,14 @@
-import React, {useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchIcon } from '../icons';
 
-const SearchForm = ({handleSubmit}) => {
-  const [searchValue, setSearchValue] = useState('');
+const SearchForm = ({ handleSubmit }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const refInput = useRef(null);
+
+  useEffect(() => {
+    refInput.current.focus();
+  }, [])
+
   return (
     <form
       className="form"
@@ -20,6 +26,7 @@ const SearchForm = ({handleSubmit}) => {
           placeholder="Search for a reporsitories"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
+          ref={refInput}
         />
       </div>
     </form>
