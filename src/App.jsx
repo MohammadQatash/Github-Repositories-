@@ -28,6 +28,7 @@ const App = () => {
     } catch (err) {
       setLoading(false);
       setErr(err);
+      console.log(err);
     }
   }
 
@@ -35,11 +36,9 @@ const App = () => {
     e.preventDefault();
     if (!searchValue) {
       showAlert(true, "danger", "The field is empty", searchValue);
-      return console.log(searchValue);
     } else {
       fetchRepos(searchValue)
         .then((repos) => {
-          console.log(repos);
           const newRepos = repos.filter((repo) => {
             return (
               searchValue.toLowerCase().trim() ===
@@ -54,10 +53,8 @@ const App = () => {
               searchValue
             );
           }
-          console.log("newRepo", newRepos);
           setReposeList([...newRepos, ...reposeList]);
           setSearchValue((searchValue = ""));
-          console.log("reposList", reposeList);
         });
     }
   };
@@ -72,7 +69,6 @@ const App = () => {
   const addToRepos = (repo) => {
     setReposeList([]);
     setShowRepos([repo, ...showRepos]);
-    return console.log(showRepos);
   }
 
   const showAlert = (show = false, type = "", msg = "", searchValue = "") => {
